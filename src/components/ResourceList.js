@@ -36,11 +36,11 @@ import axios from 'axios';
 
     // render() { 
         return (
-            <div>
+            <ul>
                 {/* {this.state.resource.length} */}
-                {resources.length}
+                {resources.map(record => <li key={record.id}>{record.title}</li>)}
 
-            </div>
+            </ul>
         )
     // }
 }
