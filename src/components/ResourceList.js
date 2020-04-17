@@ -18,21 +18,25 @@ import axios from 'axios';
     //     }
     // }
 
-  const ResourceList = ({resource}) => {
+    const useResources = (resource) => {
+        const [resources,setResource] = useState([]);
 
-    const [resources,setResource] = useState([]);
+        useEffect(()=> {
+            (async(resource) =>{
+                // const response = await axios.get(`https://jsonplaceholder.typicode.com/${this.props.resource}`)
+                const response = await axios.get(`https://jsonplaceholder.typicode.com/${resource}`)
+        
+                // this.setState({resource: response.data})
+                setResource(response.data)
+            })(resource);
+        }, [resource]);
 
-    const fetchResource = async(resource) =>{
-        // const response = await axios.get(`https://jsonplaceholder.typicode.com/${this.props.resource}`)
-        const response = await axios.get(`https://jsonplaceholder.typicode.com/${resource}`)
-
-        // this.setState({resource: response.data})
-        setResource(response.data)
+        return resources;
     }
 
-    useEffect(()=> {
-        fetchResource(resource)
-    }, [resource])
+  const ResourceList = ({resource}) => {
+
+    const resources = useResources(resource);
 
     // render() { 
         return (
